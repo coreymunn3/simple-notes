@@ -6,7 +6,6 @@ import {
   Spacer,
   Stack,
   Icon,
-  Text,
   Heading,
   Button,
 } from '@chakra-ui/react';
@@ -25,6 +24,7 @@ const Navbar = () => {
 
         <Spacer />
 
+        {/* TODO: Make these auto-collapse into a hamburger menu on small screens */}
         <Stack direction={'row'} alignItems='center'>
           <Button
             variant={'link'}
