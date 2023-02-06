@@ -37,9 +37,9 @@ const getNotes = () => {
 };
 
 const UserNoteList = () => {
-  const { activeNoteId, setActiveNoteId } = useNote();
+  const { activeNote, setActiveNote } = useNote();
   const notesQuery = useQuery(['Notes'], getNotes, {
-    onSuccess: (data) => setActiveNoteId(data[0].id),
+    onSuccess: (data) => setActiveNote(data[0]),
   });
 
   return (
@@ -66,8 +66,8 @@ const UserNoteList = () => {
                 textAlign='left'
                 p={1}
                 borderRadius={4}
-                bgColor={note.id === activeNoteId ? 'blue.400' : ''}
-                onClick={() => setActiveNoteId(note.id)}
+                bgColor={note.id === activeNote?.id ? 'blue.400' : ''}
+                onClick={() => setActiveNote(note)}
               >
                 <Text my={0.5}>{note.title}</Text>
                 <Text mb={0.5} color={'gray.400'}>

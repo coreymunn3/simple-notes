@@ -5,10 +5,10 @@ export const NoteContext = createContext(null);
 export const NoteContextProvider = (props) => {
   const { children, ...rest } = props;
 
-  const [activeNoteId, setActiveNoteId] = useState(null);
+  const [activeNote, setActiveNote] = useState(null);
   const defaultValue = {
-    activeNoteId,
-    setActiveNoteId,
+    activeNote,
+    setActiveNote,
   };
 
   return (
