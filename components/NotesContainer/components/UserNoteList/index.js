@@ -38,7 +38,7 @@ const getNotes = () => {
 
 const UserNoteList = () => {
   const { activeNote, setActiveNote } = useNote();
-  const notesQuery = useQuery(['Notes'], getNotes, {
+  const notesQuery = useQuery(['notes'], getNotes, {
     onSuccess: (data) => setActiveNote(data[0]),
   });
 

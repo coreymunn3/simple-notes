@@ -20,7 +20,13 @@ const NotesContainer = () => {
         </Box>
         {/* TODO: Eventually, on smaller screens, hide this completely and navigate to new page to see content */}
         {/* TODO: Rich text formatting */}
-        <Box flex={1} height='400px' bgColor={'gray.100'} m={1} p={[1, 2]}>
+        <Box
+          flex={1}
+          height='400px'
+          bgColor={'gray.100'}
+          m={1}
+          borderRadius={4}
+        >
           <UserNoteContent />
         </Box>
       </Flex>
