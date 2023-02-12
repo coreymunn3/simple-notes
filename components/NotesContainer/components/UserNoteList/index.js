@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Flex, Stack, IconButton, Text, Divider } from '@chakra-ui/react';
 import { useNote } from '@/contexts/NoteContext';
-import { EditIcon, DeleteIcon, AddIcon } from '@chakra-ui/icons';
+import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 
 const UserNoteList = () => {
   const { notes, activeNote, setActiveNote } = useNote();
@@ -26,12 +26,7 @@ const UserNoteList = () => {
         {notes.length ? (
           notes.map((note) => (
             <>
-              <Divider
-                borderColor={'gray.300'}
-                m={0}
-                w={'95%'}
-                alignSelf='center'
-              />
+              <Divider w={'95%'} alignSelf='center' />
               <Box
                 as='button'
                 textAlign='left'
