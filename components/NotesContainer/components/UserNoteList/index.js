@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Flex, Stack, IconButton, Text, Divider } from '@chakra-ui/react';
 import { useNote } from '@/contexts/NoteContext';
-import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { EditIcon, DeleteIcon, AddIcon } from '@chakra-ui/icons';
 import { useQuery } from '@tanstack/react-query';
 
 const getNotes = () => {
@@ -42,13 +42,24 @@ const UserNoteList = () => {
     onSuccess: (data) => setActiveNote(data[0]),
   });
 
+  const handleCreateNote = () => {
+    console.log('create note');
+  };
+  const handleEditNote = () => {
+    console.log('edit note');
+  };
+  const handleDeleteNote = () => {
+    console.log('delete note');
+  };
+
   return (
     <Flex direction={'column'} height={'100%'} overflow='auto'>
       {/* control Panel to add or delete a selected note */}
       <Stack direction={'row'}>
         <Box flex={1}></Box>
-        <IconButton icon={<EditIcon />}></IconButton>
-        <IconButton icon={<DeleteIcon />}></IconButton>
+        <IconButton icon={<AddIcon />} onClick={handleCreateNote} />
+        <IconButton icon={<EditIcon />} onClick={handleEditNote} />
+        <IconButton icon={<DeleteIcon />} onClick={handleDeleteNote} />
       </Stack>
       {/* TODO: Get list of Notes */}
       <Stack direction={'column'} spacing={0}>
