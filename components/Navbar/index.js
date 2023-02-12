@@ -13,7 +13,7 @@ import { SlNotebook } from 'react-icons/sl';
 
 const Navbar = () => {
   return (
-    <Box padding='2'>
+    <Box padding='2' h={'6vh'}>
       <Flex>
         <Stack direction={'row'} alignItems='center'>
           <Icon as={SlNotebook} boxSize={6} />

@@ -5,32 +5,20 @@ import UserNoteContent from './components/UserNoteContent';
 
 const NotesContainer = () => {
   return (
-    <Box>
-      <Flex>
+    <>
+      <Flex h='94vh'>
         {/* Notes List on left */}
         {/* TODO: make this list narrow by default and increases width on hover */}
-        <Box
-          w={['45%', '30%']}
-          height='400px'
-          bgColor={'gray.100'}
-          m={1}
-          borderRadius={4}
-        >
+        <Box w={['45%', '30%']} bgColor={'gray.100'} m={1} borderRadius={4}>
           <UserNoteList />
         </Box>
         {/* TODO: Eventually, on smaller screens, hide this completely and navigate to new page to see content */}
         {/* TODO: Rich text formatting */}
-        <Box
-          flex={1}
-          height='400px'
-          bgColor={'gray.100'}
-          m={1}
-          borderRadius={4}
-        >
+        <Box flex={1} bgColor={'gray.100'} m={1} borderRadius={4}>
           <UserNoteContent />
         </Box>
       </Flex>
-    </Box>
+    </>
   );
 };
 
