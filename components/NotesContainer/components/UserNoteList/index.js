@@ -16,7 +16,7 @@ const UserNoteList = () => {
   return (
     <Flex direction={'column'} height={'100%'} px={[1, 2]} overflow='auto'>
       {/* control Panel to add or delete a selected note */}
-      <Stack direction={'row'}>
+      <Stack direction={'row'} my={1} spacing={1}>
         <Box flex={1}></Box>
         <IconButton icon={<EditIcon />} onClick={handleCreateNote} />
         <IconButton icon={<DeleteIcon />} onClick={handleDeleteNote} />
