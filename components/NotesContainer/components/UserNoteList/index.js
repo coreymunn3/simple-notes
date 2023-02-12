@@ -9,20 +9,16 @@ const UserNoteList = () => {
   const handleCreateNote = () => {
     console.log('create note');
   };
-  const handleEditNote = () => {
-    console.log('edit note');
-  };
   const handleDeleteNote = () => {
     console.log('delete note');
   };
 
   return (
-    <Flex direction={'column'} height={'100%'} overflow='auto'>
+    <Flex direction={'column'} height={'100%'} px={[1, 2]} overflow='auto'>
       {/* control Panel to add or delete a selected note */}
       <Stack direction={'row'}>
         <Box flex={1}></Box>
-        <IconButton icon={<AddIcon />} onClick={handleCreateNote} />
-        <IconButton icon={<EditIcon />} onClick={handleEditNote} />
+        <IconButton icon={<EditIcon />} onClick={handleCreateNote} />
         <IconButton icon={<DeleteIcon />} onClick={handleDeleteNote} />
       </Stack>
       {/* TODO: Get list of Notes */}
