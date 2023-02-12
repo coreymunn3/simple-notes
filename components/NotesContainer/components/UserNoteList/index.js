@@ -2,45 +2,9 @@ import React, { useState } from 'react';
 import { Box, Flex, Stack, IconButton, Text, Divider } from '@chakra-ui/react';
 import { useNote } from '@/contexts/NoteContext';
 import { EditIcon, DeleteIcon, AddIcon } from '@chakra-ui/icons';
-import { useQuery } from '@tanstack/react-query';
-
-const getNotes = () => {
-  return [
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: 'A Sample Note 1',
-      content: 'Lorem Ipsum, dolar sit amet.',
-      published: false,
-      user_id: 1,
-    },
-    {
-      id: 2,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: 'A Sample Note 2',
-      content: 'Lorem Ipsum, dolar sit amet.',
-      published: false,
-      user_id: 1,
-    },
-    {
-      id: 3,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: 'A Sample Note 3',
-      content: 'Lorem Ipsum, dolar sit amet.',
-      published: false,
-      user_id: 1,
-    },
-  ];
-};
 
 const UserNoteList = () => {
-  const { activeNote, setActiveNote } = useNote();
-  const notesQuery = useQuery(['notes'], getNotes, {
-    onSuccess: (data) => setActiveNote(data[0]),
-  });
+  const { notes, activeNote, setActiveNote } = useNote();
 
   const handleCreateNote = () => {
     console.log('create note');
@@ -63,8 +27,8 @@ const UserNoteList = () => {
       </Stack>
       {/* TODO: Get list of Notes */}
       <Stack direction={'column'} spacing={0}>
-        {notesQuery.isSuccess ? (
-          notesQuery.data.map((note) => (
+        {notes.length ? (
+          notes.map((note) => (
             <>
               <Divider
                 borderColor={'gray.300'}
