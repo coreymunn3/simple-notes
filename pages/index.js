@@ -5,10 +5,10 @@ import NotesContainer from '@/components/NotesContainer';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-async function getUsers() {
+const getUsers = async () => {
   const res = await axios.get('/api/user');
   return res.data;
-}
+};
 
 export default function Home() {
   const usersQuery = useQuery(['users'], getUsers, {
