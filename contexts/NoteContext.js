@@ -1,38 +1,12 @@
 import React, { createContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 export const NoteContext = createContext(null);
 
-const getNotes = () => {
-  return [
-    {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: 'A Sample Note 1',
-      content: 'Lorem Ipsum, dolar sit amet.',
-      published: false,
-      user_id: 1,
-    },
-    {
-      id: 2,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: 'A Sample Note 2',
-      content: 'Lorem Ipsum, dolar sit amet.',
-      published: false,
-      user_id: 1,
-    },
-    {
-      id: 3,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      title: 'A Sample Note 3',
-      content: 'Lorem Ipsum, dolar sit amet.',
-      published: false,
-      user_id: 1,
-    },
-  ];
+const getNotes = async () => {
+  const res = await axios.get('/api/note');
+  return res.data;
 };
 
 export const NoteContextProvider = (props) => {
@@ -44,7 +18,7 @@ export const NoteContextProvider = (props) => {
   });
 
   const defaultValue = {
-    notes: notesQuery.data || [],
+    notes: notesQuery.data,
     activeNote,
     setActiveNote,
   };

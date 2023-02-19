@@ -38,7 +38,7 @@ const UserNoteList = () => {
                 <Text my={0.5}>{note.title}</Text>
                 <Text mb={0.5} color={'gray.400'}>
                   {/* TODO: Make this show a relative date (eg. 3 hours ago) */}
-                  {note.updatedAt.toLocaleDateString('en-us')}
+                  {new Date(note.updatedAt).toLocaleDateString('en-us')}
                 </Text>
               </Box>
             </>
