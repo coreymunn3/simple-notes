@@ -14,7 +14,11 @@ export const NoteContextProvider = (props) => {
   const [activeNote, setActiveNote] = useState(null);
 
   const notesQuery = useQuery(['notes'], getNotes, {
-    onSuccess: (data) => setActiveNote(data[0]),
+    onSuccess: (data) => {
+      if (!activeNote) {
+        setActiveNote(data[0]);
+      }
+    },
   });
 
   const defaultValue = {
