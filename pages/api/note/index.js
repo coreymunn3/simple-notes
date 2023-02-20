@@ -13,6 +13,7 @@ export default async function handler(req, res) {
   }
   if (req.method === 'DELETE') {
     const { id, title } = req.body;
+    console.log(req.body);
     try {
       const deleteUser = await prisma.note.delete({
         where: {
