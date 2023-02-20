@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { Box, Flex, Stack, IconButton, Text, Divider } from '@chakra-ui/react';
+import TitleModal from './components/TitleModal';
 import { useNote } from '@/contexts/NoteContext';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 
 const UserNoteList = () => {
   const { notes, activeNote, setActiveNote } = useNote();
+  const [open, setOpen] = useState(false);
 
+  const handleOpenModal = () => {
+    setOpen(true);
+  };
+  const handleCloseModal = () => {
+    setOpen(false);
+  };
   const handleCreateNote = () => {
     console.log('create note');
   };
@@ -18,7 +26,7 @@ const UserNoteList = () => {
       {/* control Panel to add or delete a selected note */}
       <Stack direction={'row'} my={1} spacing={1}>
         <Box flex={1}></Box>
-        <IconButton icon={<EditIcon />} onClick={handleCreateNote} />
+        <IconButton icon={<EditIcon />} onClick={handleOpenModal} />
         <IconButton icon={<DeleteIcon />} onClick={handleDeleteNote} />
       </Stack>
       {/* TODO: Get list of Notes */}
@@ -47,6 +55,11 @@ const UserNoteList = () => {
           <Text>No Notes Yet!</Text>
         )}
       </Stack>
+      <TitleModal
+        open={open}
+        onClose={handleCloseModal}
+        handleCreateNote={handleCreateNote}
+      />
     </Flex>
   );
 };
