@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 
 const TitleModal = (props) => {
-  const { open, onClose, handleCreateNote } = props;
+  const { open, handleClose, handleCreateNote } = props;
   const [title, setTitle] = useState('');
 
   const handleChange = (e) => {
@@ -25,7 +25,7 @@ const TitleModal = (props) => {
   };
 
   return (
-    <Modal onClose={onClose} isOpen={open} isCentered>
+    <Modal onClose={handleClose} isOpen={open} isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Enter Note Title</ModalHeader>
@@ -40,7 +40,16 @@ const TitleModal = (props) => {
         </ModalBody>
         <ModalFooter>
           <Stack direction={'row'}>
-            <Button onClick={handleCreateNote} colorScheme='blue'>
+            <Button
+              onClick={() => {
+                handleCreateNote({
+                  title,
+                  user_id: 1, // TODO: change this to the current actual user
+                });
+                handleClose();
+              }}
+              colorScheme='blue'
+            >
               Create
             </Button>
           </Stack>

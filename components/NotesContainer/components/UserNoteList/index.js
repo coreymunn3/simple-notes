@@ -2,23 +2,29 @@ import React, { useState } from 'react';
 import { Box, Flex, Stack, IconButton, Text, Divider } from '@chakra-ui/react';
 import TitleModal from './components/TitleModal';
 import { useNote } from '@/contexts/NoteContext';
+import { useMutation } from '@tanstack/react-query';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import axios from 'axios';
 
 const UserNoteList = () => {
   const { notes, activeNote, setActiveNote } = useNote();
   const [open, setOpen] = useState(false);
+
+  const createNoteMutation = useMutation((newNote) => {
+    return axios.post('/api/note', newNote);
+  });
+  const deleteNoteMutation = useMutation((note) => {
+    return axios.delete(`/api/note/${note.id}`);
+  });
+
+  const handleCreateNote = (note) => createNoteMutation.mutate(note);
+  const handleDeleteNote = (note) => deleteNoteMutation.mutate(note);
 
   const handleOpenModal = () => {
     setOpen(true);
   };
   const handleCloseModal = () => {
     setOpen(false);
-  };
-  const handleCreateNote = () => {
-    console.log('create note');
-  };
-  const handleDeleteNote = () => {
-    console.log('delete note');
   };
 
   return (
@@ -27,7 +33,10 @@ const UserNoteList = () => {
       <Stack direction={'row'} my={1} spacing={1}>
         <Box flex={1}></Box>
         <IconButton icon={<EditIcon />} onClick={handleOpenModal} />
-        <IconButton icon={<DeleteIcon />} onClick={handleDeleteNote} />
+        <IconButton
+          icon={<DeleteIcon />}
+          onClick={() => handleDeleteNote(activeNote)}
+        />
       </Stack>
       {/* TODO: Get list of Notes */}
       <Stack direction={'column'} spacing={0}>
@@ -57,7 +66,7 @@ const UserNoteList = () => {
       </Stack>
       <TitleModal
         open={open}
-        onClose={handleCloseModal}
+        handleClose={handleCloseModal}
         handleCreateNote={handleCreateNote}
       />
     </Flex>
