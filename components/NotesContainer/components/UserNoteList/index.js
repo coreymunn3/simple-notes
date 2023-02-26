@@ -2,23 +2,64 @@ import React, { useState } from 'react';
 import { Box, Flex, Stack, IconButton, Text, Divider } from '@chakra-ui/react';
 import TitleModal from './components/TitleModal';
 import { useNote } from '@/contexts/NoteContext';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 
 const UserNoteList = () => {
-  const { notes, activeNote, setActiveNote } = useNote();
+  const { activeNote, setActiveNote } = useNote();
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
 
-  const createNoteMutation = useMutation((newNote) => {
-    return axios.post('/api/note', newNote);
-  });
-  const deleteNoteMutation = useMutation((note) => {
-    return axios.delete(`/api/note/${note.id}`);
-  });
+  const notesQuery = useQuery(
+    ['notes'],
+    async () => {
+      const res = await axios.get('/api/note');
+      return res.data;
+    },
+    {
+      // TODO: Add Snackbars for Error and Success
+      onSuccess: (data) => {
+        if (!activeNote) {
+          setActiveNote(data[0]);
+        }
+      },
+    }
+  );
 
-  const handleCreateNote = (note) => createNoteMutation.mutate(note);
-  const handleDeleteNote = (note) => deleteNoteMutation.mutate(note);
+  const createNoteMutation = useMutation(
+    ['create-update-note'],
+    async (newNote) => {
+      const res = await axios.post('/api/note', newNote);
+      return res;
+    },
+    {
+      // TODO: Add Snackbars for Error and Success
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(['notes']);
+      },
+    }
+  );
+  const deleteNoteMutation = useMutation(
+    ['delete-note'],
+    async (note) => {
+      const res = await axios.delete(`/api/note/${note.id}`);
+      return res;
+    },
+    {
+      // TODO: Add Snackbars for Error and Success
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(['notes']);
+      },
+    }
+  );
+
+  const handleCreateNote = (note) => {
+    createNoteMutation.mutate(note);
+  };
+  const handleDeleteNote = (note) => {
+    deleteNoteMutation.mutate(note);
+  };
 
   const handleOpenModal = () => {
     setOpen(true);
@@ -40,8 +81,8 @@ const UserNoteList = () => {
       </Stack>
       {/* TODO: Get list of Notes */}
       <Stack direction={'column'} spacing={0}>
-        {notes.length ? (
-          notes.map((note) => (
+        {notesQuery.data ? (
+          notesQuery.data.map((note) => (
             <>
               <Divider w={'95%'} alignSelf='center' />
               <Box
