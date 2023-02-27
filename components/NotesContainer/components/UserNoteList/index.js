@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Flex, Stack, IconButton, Text, Divider } from '@chakra-ui/react';
 import TitleModal from './components/TitleModal';
+import ContentCard from '@/components/ContentCard';
 import { useNote } from '@/contexts/NoteContext';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
@@ -69,17 +70,27 @@ const UserNoteList = () => {
   };
 
   return (
-    <Flex direction={'column'} height={'100%'} px={[1, 2]} overflow='auto'>
+    <ContentCard
+      loading={
+        notesQuery.isFetching ||
+        createNoteMutation.isLoading ||
+        deleteNoteMutation.isLoading
+      }
+    >
       {/* control Panel to add or delete a selected note */}
       <Stack direction={'row'} my={1} spacing={1}>
         <Box flex={1}></Box>
-        <IconButton icon={<EditIcon />} onClick={handleOpenModal} />
+        <IconButton
+          icon={<EditIcon />}
+          onClick={handleOpenModal}
+          disabled={notesQuery.isFetching}
+        />
         <IconButton
           icon={<DeleteIcon />}
           onClick={() => handleDeleteNote(activeNote)}
+          disabled={notesQuery.isFetching}
         />
       </Stack>
-      {/* TODO: Get list of Notes */}
       <Stack direction={'column'} spacing={0}>
         {notesQuery.data ? (
           notesQuery.data.map((note) => (
@@ -110,7 +121,7 @@ const UserNoteList = () => {
         handleClose={handleCloseModal}
         handleCreateNote={handleCreateNote}
       />
-    </Flex>
+    </ContentCard>
   );
 };
 
