@@ -46,6 +46,7 @@ const TitleModal = (props) => {
                   title,
                   user_id: 1, // TODO: change this to the current actual user
                 });
+                setTitle('');
                 handleClose();
               }}
               colorScheme='blue'
