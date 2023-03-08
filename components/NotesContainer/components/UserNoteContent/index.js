@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from 'react';
 import { useNote } from '@/contexts/NoteContext';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { generateHTML } from '@tiptap/html';
 import Document from '@tiptap/extension-document';
@@ -29,6 +29,7 @@ lowlight.registerLanguage('js', js);
 
 const UserNoteContent = () => {
   const { activeNote } = useNote();
+  const queryClient = useQueryClient();
   // use tiptap util function to generate memoized HTML from the activeNote Json
   const output = useMemo(() => {
     if (activeNote?.content) {
@@ -99,6 +100,7 @@ const UserNoteContent = () => {
     if (editor) {
       editor.commands.setContent(output);
     }
+    queryClient.invalidateQueries(['notes']);
   }, [output, editor]);
 
   return (
