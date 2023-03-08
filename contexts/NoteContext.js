@@ -1,6 +1,4 @@
 import React, { createContext, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
 export const NoteContext = createContext(null);
 
