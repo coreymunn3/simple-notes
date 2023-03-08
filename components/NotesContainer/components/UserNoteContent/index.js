@@ -89,7 +89,6 @@ const UserNoteContent = () => {
     onUpdate: debounce(({ editor }) => {
       const json = editor.getJSON();
       const stringifiedContent = JSON.stringify(json);
-      console.log('stringifiedContent', stringifiedContent);
       updateNoteMutation.mutate(stringifiedContent);
     }, 1000),
     content: output,
