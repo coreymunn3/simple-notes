@@ -51,6 +51,7 @@ const UserNoteList = () => {
       // TODO: Add Snackbars for Error and Success
       onSuccess: (data) => {
         queryClient.invalidateQueries(['notes']);
+        setActiveNote(null);
       },
     }
   );
